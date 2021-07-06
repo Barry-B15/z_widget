@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ label, options, selected, onSelectedChange }) => {
     // create a new piece of state to handle class toggle
     const [open, setOpen] = useState(false);
     // call use ref just after useState
@@ -29,44 +29,43 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         if (option.value === selected.value) {
             return null;
         }
-        return (
-            <div
-                key={option.value}
-                className="item"
-                // handle when user clicks a color to update the option
-                onClick={() => {
+        return ( 
+        <div key = { option.value }
+            className = "item"
+            // handle when user clicks a color to update the option
+            onClick = {
+                () => {
                     // console.log('Item CLICKED');
                     onSelectedChange(option)
-                }}
-            >
-                {option.label}
-            </div>
+                }
+            } >
+            { option.label } 
+        </div>
         );
     });
-    // console log the ref
-    // console.log(ref.current);
 
-    return (
-        // <h1>Dropdown </h1>; replace this with a block of JSX
-        <div ref={ref} className="ui form">
-            <div className="field">
-                <label className="label">Select a Color</label>
-                {/* add onclick listener to handle dropdown toggle */}
-                <div
-                    onClick={() => {
-                        // console.log('DROPDOWN CLICKED')
+    return ( 
+        <div ref = { ref }
+            className = "ui form" >
+            <div className = "field">
+                <label className = "label" > { label } </label>  { /* use the label in place of the hard coded one */ }
+
+                <div onClick = {
+                    () => {
                         setOpen(!open)
-                    }}
+                    }
+                }
 
-                    className={`ui selection dropdown ${open ? 'visible active ' : ''} `}>
-                    <i className="dropdown icon"></i>
-                    {/* printout the label of the selected item */}
-                    <div className="text">{selected.label}</div>
-                    <div className={`menu ${open ? 'visible transition ' : ''} `}>
-                        {renderedOptions}
-                    </div>
-                </div>
-            </div>
+                    className = { `ui selection dropdown ${ open ? 'visible active ' : ''} ` } >
+                    <i className = "dropdown icon" > </i>  
+                    <div className = "text" > 
+                        { selected.label } 
+                    </div>  
+                    <div className = { `menu ${open ? 'visible transition ' : ''} ` } > 
+                        { renderedOptions } 
+                    </div>  
+                </div>  
+            </div>  
         </div>
     );
 }
