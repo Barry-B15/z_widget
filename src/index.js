@@ -10,12 +10,3 @@ if (module.hot) {
 
 ReactDOM.render(<App />, document.querySelector('#root'));
 
-// const index = () => {
-//     return ( 
-//         <div >
-
-//         </div>
-//     );
-// }
-
-// export default index

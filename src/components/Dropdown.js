@@ -8,8 +8,13 @@ const Dropdown = ({ label, options, selected, onSelectedChange }) => {
 
     useEffect(() => {
         // create a new const, give it the callback func from our listener
+        // if (ref.current.contains(event.target)) {
+            //     return;
+            // };
+            //Line 12 - TypeError: Cannot read property contains of null fixed with optional chaining ?(ref.current as ref?.current?.)
+            // Saw this from a reddit post
         const onBodyClick = (event) => {
-            if (ref.current.contains(event.target)) {
+            if (ref?.current?.contains(event.target)) {
                 return;
             };
 
@@ -30,42 +35,42 @@ const Dropdown = ({ label, options, selected, onSelectedChange }) => {
             return null;
         }
         return ( 
-        <div key = { option.value }
-            className = "item"
-            // handle when user clicks a color to update the option
-            onClick = {
-                () => {
-                    // console.log('Item CLICKED');
-                    onSelectedChange(option)
-                }
-            } >
-            { option.label } 
-        </div>
+            <div key = { option.value }
+                className = "item"
+                // handle when user clicks a color to update the option
+                onClick = {
+                    () => {
+                        // console.log('Item CLICKED');
+                        onSelectedChange(option)
+                    }
+                } > 
+                    { option.label } 
+            </div>
         );
     });
 
     return ( 
         <div ref = { ref }
-            className = "ui form" >
+            className = "ui form">
             <div className = "field">
-                <label className = "label" > { label } </label>  { /* use the label in place of the hard coded one */ }
+                <label className = "label"> { label } </label>  
+                {/* { / * use the label in place of the hard coded one * / } */}
 
                 <div onClick = {
                     () => {
                         setOpen(!open)
                     }
-                }
-
+                    }
                     className = { `ui selection dropdown ${ open ? 'visible active ' : ''} ` } >
-                    <i className = "dropdown icon" > </i>  
+                    <i className = "dropdown icon" > </i>   
                     <div className = "text" > 
                         { selected.label } 
-                    </div>  
+                    </div>   
                     <div className = { `menu ${open ? 'visible transition ' : ''} ` } > 
                         { renderedOptions } 
-                    </div>  
-                </div>  
-            </div>  
+                    </div>   
+                </div> 
+            </div>   
         </div>
     );
 }
